@@ -8,10 +8,9 @@ class Evaluacion(Resource):
         self.__db = Conexion().get_db()
 
 
-    def get(self):
-        data = self.datos_evaluacion('5c069e547bb1b606d287b497')
-        data.update(self.datos_colaborador('todesaragb', 'd1862571814bca8bdd810b3f72cfb3d2'))
-        data.update(self.datos_jefe_inmediato('todesaragb'))
+    def get(self, usr_conect, clave_conect, id_evaluacion):
+        data = self.datos_evaluacion(id_evaluacion)
+        data.update(self.datos_colaborador(usr_conect, clave_conect))
         return data
 
     
@@ -33,7 +32,6 @@ class Evaluacion(Resource):
         result = collection.find(condicion, campos)
         for e in result:
             return {
-                'idEvaluacion': str(e['_id']),
                 'nombreEvaluacion': e['nombreEvaluacion'],
                 'fechaFin': str(e['fechaFin']),
                 'instrucciones': e['instrucciones'],
@@ -55,9 +53,13 @@ class Evaluacion(Resource):
             'subordinados': 1
             }
         
+        data_result = self.datos_jefe_inmediato(usr_conect)
+        
         result = collection.find(condicion, campos)
         for data in result:
-            return data
+            data_result.update(data)
+        
+        return data_result
     
 
     ''' Metodo para obtener los datos del Jefe inmediato '''
