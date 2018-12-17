@@ -1,0 +1,3 @@
+# Dependencias utilizadas en los microservicios
+pip install flask-restful
+pip install pymongo
