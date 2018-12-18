@@ -5,17 +5,12 @@ from db.mongo import Conexion
 class Evaluacion(Resource):
 
     def __init__(self):
+        ''' Metodo constructor de la clase '''
         self.__db = Conexion().get_db()
 
 
-    def get(self, usr_conect, clave_conect, id_evaluacion):
-        data = self.datos_evaluacion(id_evaluacion)
-        data.update(self.datos_colaborador(usr_conect, clave_conect))
-        return data
-
-    
-    ''' Este metodo consulta los datos de la evaluacion por el id '''
     def datos_evaluacion(self, id_evaluacion):
+        ''' Este metodo consulta los datos de la evaluacion por el id '''
         collection = self.__db.ed_evaluacion
 
         condicion = {
@@ -39,8 +34,8 @@ class Evaluacion(Resource):
             }
     
 
-    ''' Metodo para consultar los datos del colaborador '''
     def datos_colaborador(self, usr_conect, clave_conect):
+        ''' Metodo para consultar los datos del colaborador '''
         collection = self.__db.colaboradores
         
         condicion = {
@@ -53,7 +48,7 @@ class Evaluacion(Resource):
             'subordinados': 1
             }
         
-        data_result = self.datos_jefe_inmediato(usr_conect)
+        data_result = {'datosJefe': self.datos_jefe_inmediato(usr_conect)}
         
         result = collection.find(condicion, campos)
         for data in result:
@@ -62,8 +57,8 @@ class Evaluacion(Resource):
         return data_result
     
 
-    ''' Metodo para obtener los datos del Jefe inmediato '''
     def datos_jefe_inmediato(self, usr_conect):
+        ''' Metodo para obtener los datos del Jefe inmediato '''
         collection = self.__db.colaboradores
 
         condicion = {
@@ -76,6 +71,13 @@ class Evaluacion(Resource):
         result = collection.find(condicion, campos)
         for data in result:
             return {
-                'nombreJefe': data['nombre'],
-                'idJefe': data['_id']
+                'nombre': data['nombre'],
+                'id': data['_id']
                 }
+    
+
+    def post(self, usr_conect, clave_conect, id_evaluacion):
+        ''' Este metodo realiza la peticion por medio de POST '''
+        data = self.datos_evaluacion(id_evaluacion)
+        data.update(self.datos_colaborador(usr_conect, clave_conect))
+        return data
