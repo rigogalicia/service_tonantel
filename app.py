@@ -12,5 +12,3 @@ api.add_resource(interrogante.Interrogante, '/ed')
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
