@@ -7,8 +7,8 @@ app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
-api.add_resource(evaluacion.Evaluacion, '/ed/<string:usr_conect>/<string:clave_conect>/<string:id_evaluacion>')
-api.add_resource(interrogante.Interrogante, '/ed')
+api.add_resource(evaluacion.Evaluacion, '/ed/evaluacion')
+api.add_resource(interrogante.Interrogante, '/ed/interrogante')
 
 if __name__ == '__main__':
     app.run(debug=True)
