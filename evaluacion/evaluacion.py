@@ -55,7 +55,7 @@ class Evaluacion(Resource):
             }
 
             campos = {
-                '_id': 0,
+                '_id':0,
                 'firma': 0,
                 'clave': 0,
                 'correo': 0
@@ -104,7 +104,8 @@ class Evaluacion(Resource):
         try:
             info = {'_id': self.__args['user'] + self.__args['id_evaluacion']}
             info.update(ed)
-            info.update({'id_colaborador': colaborador['_id']}, colaborador)
+            info.update({'id_colaborador': self.__args['user']})
+            info.update(colaborador)
             info.update({'datosJefe': jefe_inmediato})
 
             datos_calificacion = info
