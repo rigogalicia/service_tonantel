@@ -2,3 +2,16 @@
 pip install flask-restful
 pip install pymongo
 pip install -U flask-cors
+
+#
+{
+	"id_evaluacion": "5c069e547bb1b606d287b497",
+	"id_colaborador_conectado": "todesaragb",
+	"id_colaborador_calificar": "todesaragb",
+	"nombre_colaborador_calificar": "Rigo Antonio Galicia Barrera",
+	"tipo_conducta": null,
+	"id_interrogante": null,
+	"interrogante": null,
+	"ponderacion": "Excelente",
+	"peso": "100"
+}

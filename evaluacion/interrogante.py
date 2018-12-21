@@ -185,7 +185,7 @@ class Interrogante(Resource):
             'descripcion': res['descripcion']
         }
 
-        resultado.update({'progreso': self.progreso()})
+        resultado.update({'progreso': 'width: ' + str(self.progreso()) + '%'})
         resultado.update(self.ponderaciones())
         
         return resultado
@@ -193,4 +193,5 @@ class Interrogante(Resource):
     def post(self):
         ''' Metodo POST para iniciar la ejecucion de la clase '''
         self.__args = parser.parse_args()
+        print(self.__args)
         return self.datos_interrogante()
