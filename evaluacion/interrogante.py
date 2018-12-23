@@ -193,5 +193,4 @@ class Interrogante(Resource):
     def post(self):
         ''' Metodo POST para iniciar la ejecucion de la clase '''
         self.__args = parser.parse_args()
-        print(self.__args)
         return self.datos_interrogante()
